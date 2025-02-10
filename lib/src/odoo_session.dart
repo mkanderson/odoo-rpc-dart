@@ -1,7 +1,7 @@
 /// Odoo Session Object
 library;
 
-/// Represents compnay in odooSession.
+/// Represents company in odooSession.
 class Company {
   int id;
   String name;
@@ -158,6 +158,7 @@ class OdooSession {
       'partnerId': partnerId,
       'companyId': companyId,
       'allowedCompanies': Company.toJsonList(allowedCompanies),
+      'allowedCompanies': allowedCompanies.map((c) => c.toJson()).toList(),
       'userLogin': userLogin,
       'userName': userName,
       'userLang': userLang,
@@ -175,8 +176,7 @@ class OdooSession {
       userId: json['userId'] as int,
       partnerId: json['partnerId'] as int,
       companyId: json['companyId'] as int,
-      allowedCompanies: Company.fromJsonList(
-          List<Map<String, dynamic>>.from(json['allowedCompanies'])),
+      allowedCompanies: Company.fromJsonList((json['allowedCompanies'] as List?) ?? []),
       userLogin: json['userLogin'] as String,
       userName: json['userName'] as String,
       userLang: json['userLang'] as String,
